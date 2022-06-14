@@ -7,31 +7,37 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%> // capturar el objeto completo y traspasar el objeto completo 
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<!-- capturar el objeto completo y traspasar el objeto completo -->
 
 <html>
 <head>
     <title>Registro</title>
 </head>
 <body>
-    <div>
-        <!-- pasar informacion desde la vista a una url (action) -->
-        <!-- el method "GET" es por default, los parametros se ven en la ruta -->
-        <!-- el method "POST" los parametros no se ven, van ocultos -->
-        <form action="/registro/usuario" method="post">
-            <label for="nombre"> Nombre: </label>
-            <input type="text" id="nombre" name="gato"> <!-- nos sirve para capturar la informacion -->
-            <br> <!-- Salto de linea -->
-            <label for="apellido"> Apellido: </label>
-            <input type="text" id="apellido" name="apellido">
-            <br>
-            <label for="edad"> Edad: </label>
-            <input type="number" id="edad" name="edad">
-            <br>
-            <input type="submit" value="Registrar"> <!-- vamos agregar un boton, enviar informacion -->
-            <input type="button" value="Enviar">  <!-- vamos agregar un boton, este es un boton clickeable-->
+<div>
+    <c:if test="${msgError != null }">
+        <c:out value="${msgError}"></c:out>
+    </c:if>
 
-        </form>
-    </div>
+    <%--@elvariable id="usuario" type="com.g1generation.models.Usuario"--%>
+    <form:form action="/registro/usuario" method="post" modelAttribute="usuario">
+        <form:label path="nombre"> Nombre:</form:label>
+        <form:input  path="nombre"/>
+        <br>
+        <form:label path="apellidos">Apellido:</form:label>
+        <form:input path="apellidos"/>
+        <br>
+        <form:label path="edad">Edad:</form:label>
+        <form:input type="number" path="edad"/>
+        <br>
+        <input type="submit" value="Registrar">
+
+
+
+    </form:form>
+
+
+</div>
 </body>
 </html>

@@ -16,10 +16,9 @@ public class IndexControllers {
             model.addAttribute("Edad",26);
 
             //Instancia de usuario
-            Usuario usuario = new Usuario("Donato","Loren",12);
+            Usuario usuario = new Usuario("Tom","Delorean",24,"Admin1234");
             //pasando el objeto a la vista (JSP JavaServer Pages)
             model.addAttribute("usuario",usuario);
-
 
             return "index.jsp"; //return siempre entre comillas
         }
