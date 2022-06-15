@@ -21,7 +21,7 @@
 </p>
 
 
-<p><c:out value="${usuario.nombre} ${usuario.apellidos} ${usuario.getEdad}" ></c:out> <!-- es lo mismo .edad que .getEdad, en este caso-->
+<p><c:out value="${usuario.nombre} ${usuario.apellidos} ${usuario.edad} "  ></c:out> <!-- es lo mismo .edad que .getEdad, en este caso-->
 </p>
 
 

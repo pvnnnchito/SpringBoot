@@ -1,6 +1,8 @@
 package com.g1generation.controllers;
 
 import com.g1generation.models.Usuario;
+import com.g1generation.services.UsuarioService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +16,10 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/registro") //estamos estableciendo parte de la ruta generica, //localhost:8080/registro
 public class RegistroController {
+
+    //Nos facilita la inyeccion de dependencias
+    @Autowired
+    UsuarioService usuarioService;
 
     // una ruta para desplegar el jsp, ruta por default
     @RequestMapping("")
@@ -40,12 +46,18 @@ public class RegistroController {
         //Despues del Valid, al final se pone una coma con BindingResult
         //capturamos el objeto con los atributos llenos
 
-        if(resultado.hasErrors()) { // capturando si hay error en el ingreso de datos desde el jsp
+        if (resultado.hasErrors()) { // capturando si hay error en el ingreso de datos desde el jsp
             model.addAttribute("msgError", "Debe realizar ingreso correcto de los datos");
-           return "registro.jsp"; // si hay un error la enviamos de vuelta a la pag de registro
-        }
+            return "registro.jsp"; // si hay un error la enviamos de vuelta a la pag de registro
+        } else {
 
-        System.out.println(usuario.getNombre()+" "+usuario.getApellidos()+" "+usuario.getEdad());
-        return "index.jsp"; // la pagina a desplegar
+            //capturamos el obejto con los atributos llenos
+            System.out.println(usuario.getNombre() + " " + usuario.getApellidos() + " " + usuario.getEdad());
+
+            //enviar el objeto al service
+            usuarioService.saveUsuario(usuario);
+
+            return "index.jsp"; // la pagina a desplegar
+        }
     }
 }
