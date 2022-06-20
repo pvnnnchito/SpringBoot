@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
-@Controller  // sera nuestra ruta controlador
+//@Controller  // sera nuestra ruta controlador
 public class IndexControllers {
         //http://localhost:8080/
         @RequestMapping("/") //anotacion para capturar las rutas

@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="G1Generation:war">
+    <output-path>$PROJECT_DIR$/G1Generation/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>G1Generation</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="G1Generation-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="G1Generation:war exploded" />
+    </root>
+  </artifact>
+</component>
