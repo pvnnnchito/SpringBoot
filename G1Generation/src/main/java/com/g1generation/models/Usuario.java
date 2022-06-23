@@ -1,21 +1,31 @@
 package com.g1generation.models;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@Entity// nuestro objeto se va a convertir en una entidad
-@Table(name="usuarios") //nombre que vamos a trabajar en la base de datos
+@Entity // nuestro objeto se va a convertir en una entidad
+@Table(name = "usuarios") // nombre que vamos a trabajar en la base de datos
 
 public class Usuario {
-    //Atributos
+    // Atributos
     @Id // estas columnas siempre las vamos a ocupar para todos los objetos
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Size(min = 3, max = 20) //vamos a controlar cuantos caracteres, ingresara el cliente
+    @Size(min = 3, max = 20) // vamos a controlar cuantos caracteres, ingresara el cliente
     private String nombre;
     @Size(min = 3, max = 20)
     private String apellidos;
@@ -25,22 +35,40 @@ public class Usuario {
     @Size(min = 6, max = 8)
     private String password;
 
-    //Constructor vacio
+    @Column(updatable = false)
+    private Date createdAt;
+
+    private Date updatedAt;
+
+    @OneToOne(mappedBy ="usuario",cascade=CascadeType.ALL ,fetch=FetchType.LAZY)
+	private Licencia licencia;
+
+
+    // Constructor vacio
     public Usuario() {
         super();
     }
-    //Constructor
+
+    // Constructor
     public Usuario(String nombre, String apellidos, Integer edad, String password) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.edad = edad;
         this.password = password;
     }
-    //Getter and setters
+    // Getter and setters
     // Tomar valores y ponerlos
 
     public Long getId() {
         return id;
+    }
+
+    public Licencia getLicencia() {
+        return licencia;
+    }
+
+    public void setLicencia(Licencia licencia) {
+        this.licencia = licencia;
     }
 
     public void setId(Long id) {
@@ -78,4 +106,16 @@ public class Usuario {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = new Date();
+    }
+
+
 }

@@ -20,7 +20,7 @@ public class AutoService {
 		autoRepository.save(auto);
 		
 	}
-	//obtener una lista de autos
+	/**obtener una lista de autos**/
 	public List<Auto> findAll() {
 		
 		return autoRepository.findAll();
